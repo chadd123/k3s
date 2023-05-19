@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: test_var
+    debug:
+      msg: "{{ hostvars[groups['k3s_masters'][0]]['ip']['v4']['address']}}"
+  - name: test2
+    debug:
+      msg: "{{ k3s_token }}"

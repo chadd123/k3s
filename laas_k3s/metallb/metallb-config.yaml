@@ -1,0 +1,18 @@
+---
+
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: k3s-services-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 10.254.11.150-10.254.11.230
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: k3s-services-vlan
+  namespace: metallb-system

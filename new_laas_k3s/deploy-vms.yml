@@ -1,0 +1,46 @@
+---
+- name: Create a VM from a template
+  hosts: localhost
+  gather_facts: False
+  vars:
+    vcenter_ip: "10.95.0.29"
+    vcenter_username: "administrator@vsphere.local"
+    vcenter_password: "WWTwwt1!"
+    datacenter_name: laasmgmt-01
+    cluster_name: LaaS-Cluster
+    folder: k3s
+    state: poweredon
+    template: "Ubuntu-SVR-22.04.2-tmpl"
+    wait_for_ip_address: False
+    validate_certs: False
+    resource_pool: K3s-Test-1
+    k3s_vms_list:
+      - k3s-master-01
+      - k3s-master-02
+      - k3s-master-03
+      - k3s-worker-01
+      - k3s-worker-02
+      - k3s-worker-03
+      - k3s-worker-04
+      - k3s-worker-05
+
+
+
+  tasks:
+  - name: Clone template for K3s
+    vmware_guest:
+      hostname: "{{ vcenter_ip }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: "{{ validate_certs }}"
+      name: "{{ k3s_vm }}"
+      template: "{{ template }}"
+      datacenter: "{{ datacenter_name }}"
+      folder: "{{ folder }}"
+      resource_pool: "{{ resource_pool }}"
+      state: "{{ state }}"
+      cluster: "{{ cluster_name }}"
+      wait_for_ip_address: "{{ wait_for_ip_address }}"
+    loop: "{{ k3s_vms_list }}"
+    loop_control:
+      loop_var: k3s_vm

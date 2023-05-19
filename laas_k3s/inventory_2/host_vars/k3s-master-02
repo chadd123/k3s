@@ -1,0 +1,14 @@
+---
+
+ip:
+  v4:
+    address: 10.254.10.7
+    gateway: 10.254.10.1
+    netmask: 255.255.255.0
+    cidr: 24
+    subnet: 10.254.10.0
+dns_server_list:
+  - "1.1.1.1"
+  - "1.1.2.2"
+cluster_vip: 10.254.10.5
+vsphere_folder: WWT MGMT
